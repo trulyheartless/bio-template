@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            font-family: monospace;
+            color: #FFF;
+            font-weight: bold;
+            font-size: small;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+
+    <div id="splash-screen" class="flex flex-col items-center">
+        <a href="#" id="splash-link">
+            <img src="https://r2.interrupted.me/F/VbJi1QSD.png" class="rounded-full w-24 mb-4" alt="Logo">
+        </a>
+        <pre class="bg-black text-white p-4 rounded">
+            # delta
+            
+            Telegram : <a href="https://t.me/@taxbraccet" target="_blank" class="hover:underline"> @taxbraccet</a>
+            Twitter  : <a href="https://twitter.com/7Amg" target="_blank" class="hover:underline"> @7Amg</a>
+            Discord  : <a href="https://discord.com/users/1138164464198365205" target="_blank" class="hover:underline"> @9amg</a>
+            XMR: 48PwBaATGBmexme...E7zFUXx <span id="copy-btn" class="underline cursor-pointer">[copy]</span>
+        </pre>
+    </div>
+
+    <div id="notification" class="fixed top-0 right-0 p-4 hidden bg-green-500 text-white rounded">
+        Copied to clipboard!
+    </div>
+
+    <audio id="audio" src="https://r2.interrupted.me/F/EzrDmIBr.mp3"></audio>
+
+    <script>
+        const copyBtn = document.getElementById("copy-btn");
+        const notification = document.getElementById("notification");
+        const audio = document.getElementById("audio");
+        const splashScreen = document.getElementById("splash-screen");
+
+        copyBtn.onclick = function() {
+            navigator.clipboard.writeText("48PwBaATGBmexmeEfJJ5sVAY18nYMqACSM46VKyouMwhMEQ7BUFpobhgCcVQsdJkbKai8mfTf7DdoGnL8G8DxUPvE7zFUXx").then(() => {
+                notification.classList.remove("hidden");
+                setTimeout(() => {
+                    notification.classList.add("hidden");
+                }, 2000);
+            });
+        }
+
+        splashScreen.onclick = function() {
+            audio.play();
+            splashScreen.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
