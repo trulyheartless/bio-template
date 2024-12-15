@@ -17,21 +17,25 @@
 </head>
 <body class="flex items-center justify-center h-screen">
 
-    <div id="splash-screen" class="flex flex-col items-center">
+    <div id="splash-screen" class="flex flex-col items-center justify-center h-full w-full transition-opacity duration-500 ease-in-out">
         <a href="#" id="splash-link">
             <img src="https://r2.interrupted.me/F/VbJi1QSD.png" class="rounded-full w-24 mb-4" alt="Logo">
         </a>
+        <p class="text-lg">Click to enter</p>
+    </div>
+
+    <div id="content" class="hidden flex flex-col items-center transition-opacity duration-500 ease-in-out">
         <pre class="bg-black text-white p-4 rounded">
             # delta
             
-            Telegram : <a href="https://t.me/@taxbraccet" target="_blank" class="hover:underline"> @taxbraccet</a>
-            Twitter  : <a href="https://twitter.com/7Amg" target="_blank" class="hover:underline"> @7Amg</a>
-            Discord  : <a href="https://discord.com/users/1138164464198365205" target="_blank" class="hover:underline"> @9amg</a>
+            Telegram : <a href="https://t.me/@taxbraccet" target="_blank" class="hover:underline transition duration-300"> @taxbraccet</a>
+            Twitter  : <a href="https://twitter.com/7Amg" target="_blank" class="hover:underline transition duration-300"> @7Amg</a>
+            Discord  : <a href="https://discord.com/users/1138164464198365205" target="_blank" class="hover:underline transition duration-300"> @9amg</a>
             XMR: 48PwBaATGBmexme...E7zFUXx <span id="copy-btn" class="underline cursor-pointer">[copy]</span>
         </pre>
     </div>
 
-    <div id="notification" class="fixed top-0 right-0 p-4 hidden bg-green-500 text-white rounded">
+    <div id="notification" class="fixed top-0 right-0 p-4 hidden bg-green-500 text-white rounded transition-transform transform translate-y-[-100%] duration-300 ease-in-out">
         Copied to clipboard!
     </div>
 
@@ -42,19 +46,29 @@
         const notification = document.getElementById("notification");
         const audio = document.getElementById("audio");
         const splashScreen = document.getElementById("splash-screen");
+        const content = document.getElementById("content");
 
         copyBtn.onclick = function() {
             navigator.clipboard.writeText("48PwBaATGBmexmeEfJJ5sVAY18nYMqACSM46VKyouMwhMEQ7BUFpobhgCcVQsdJkbKai8mfTf7DdoGnL8G8DxUPvE7zFUXx").then(() => {
                 notification.classList.remove("hidden");
+                notification.classList.remove("translate-y-[-100%]");
                 setTimeout(() => {
-                    notification.classList.add("hidden");
+                    notification.classList.add("translate-y-[-100%]");
+                    setTimeout(() => {
+                        notification.classList.add("hidden");
+                    }, 300);
                 }, 2000);
             });
         }
 
         splashScreen.onclick = function() {
             audio.play();
-            splashScreen.style.display = 'none';
+            splashScreen.classList.add('opacity-0');
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                content.classList.remove('hidden');
+                content.classList.add('opacity-100');
+            }, 500);
         }
     </script>
 </body>
