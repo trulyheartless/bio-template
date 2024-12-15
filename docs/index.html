@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noire</title>
+    <link rel="stylesheet" href="https://sachi.lol/cursor.css">
+    <link rel="stylesheet" href="https://sachi.lol/res/css/scanlines.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
@@ -12,6 +14,25 @@
             color: #FFF;
             font-weight: bold;
             font-size: small;
+        }
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.05;
+            z-index: 2;
+        }
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+            z-index: 3;
         }
     </style>
 </head>
@@ -69,5 +90,41 @@
             }, 500);
         }
     </script>
+
+<script>
+        function createNoise() {
+            const canvas = document.createElement('canvas');
+            canvas.classList.add('noise');
+            const ctx = canvas.getContext('2d');
+            
+            const resize = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+            
+            resize();
+            window.addEventListener('resize', resize);
+            
+            function noise() {
+                const imageData = ctx.createImageData(canvas.width, canvas.height);
+                const data = imageData.data;
+                
+                for (let i = 0; i < data.length; i += 4) {
+                    const value = Math.random() * 255;
+                    data[i] = value;
+                    data[i + 1] = value;
+                    data[i + 2] = value;
+                    data[i + 3] = 255;
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+            }
+            
+            setInterval(noise, 50);
+            document.body.appendChild(canvas);
+        }
+
+        createNoise();
+</script>
 </body>
 </html>
